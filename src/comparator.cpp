@@ -66,14 +66,14 @@ void qsort_comp(wchar_t* array[], int left, int right)
     int i, last;
     if (left >= right)
         return;
-    swap_comp(array, left, (left + right)/2);
+    swap_comp(array, left, (left + right) / 2);
     last = left;
-    for(i = left+1; i <= right; i++) 
+    for(i = left + 1; i <= right; i++) 
         if (strcmp(array[i], array[left]) < 0)
             swap_comp(array, ++last, i);
     swap_comp(array, left, last); 
-    qsort_comp(array, left, last-1);
-    qsort_comp(array, last+1, right);
+    qsort_comp(array, left, last - 1);
+    qsort_comp(array, last + 1, right);
 }
 
 void present(wchar_t* array[], int n)

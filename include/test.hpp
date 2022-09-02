@@ -13,6 +13,12 @@
     }                                                                       \
 }
 
+#define ASSERT(condition)                                                   \
+    {if (!(condition))                                                      \
+        printf("Error in %s in %d\n",                                       \
+            #condition, __LINE__);}
+
+
 /*
 #define print_output_of_qsort_comp(x, y) \
     {for ()}

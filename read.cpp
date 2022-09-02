@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#include "include/test.hpp"
+
 void present(wchar_t* array[], int n)
 {
     setlocale(LC_ALL, "C.UTF-8");
@@ -23,15 +25,19 @@ int main(){
     struct stat buff;
 
     pfile = fopen("Onegin.txt", "r");
+    ASSERT(pfile != NULL);
     fstat (fileno (pfile), &buff);
 
     printf("Size of the file is: %ld\n", buff.st_size);
 
-    void* buffer = malloc((buff.st_size + 1) * sizeof(wchar_t));
+    void* buffer = calloc((buff.st_size + 1), sizeof(wchar_t));
+    ASSERT(buffer != NULL);
 
-    size_t len = fread(buffer, sizeof(wchar_t), buff.st_size, pfile);
+    size_t len = fread(buffer, sizeof(char), buff.st_size, pfile);
+
     printf("%ld\n", len);
-    printf("%lc", ((wchar_t*) buffer + 1)[2]);
+    printf("%ls", ((wchar_t**) buffer)[1]);
+
     free(buffer);
     fclose(pfile);
     return 0;

@@ -6,6 +6,6 @@ wchar_t* LOWER_ALPHABET = L"абвгдеёжзийклмнопрстуфхцчш
 wchar_t* UPPER_ALPHABET = L"АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 //ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
-wchar_t* FIRST_CHECK    = L"ъьщшчцхфтсрпнмлкйзждгвбеиёюяэыоуа";
+wchar_t* STRAIGHT_CHECK = L"ъьщшчцхфтсрпнмлкйзждгвбеиёюяэыоуа";
 
-wchar_t* SECOND_CHECK   = L".,! ?_-`«"; 
+wchar_t* REVERSED_CHECK = L"ауоыэяюёиебвгджзйклмнпрстфхцчшщьъ"; 

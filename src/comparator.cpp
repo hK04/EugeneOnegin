@@ -22,31 +22,48 @@ wchar_t* strchr(wchar_t* str, int character)
     return NULL;
 }
 
-int strcmp(wchar_t* str1, wchar_t* str2)
+int straight_comparator(wchar_t* str1, wchar_t* str2)
 {
     while (*str1 != '\0' && *str2 != '\0')
     {
         wchar_t lower_char1 = tolower(*str1);
         wchar_t lower_char2 = tolower(*str2);
 
-        wchar_t* first_check1  = strchr(FIRST_CHECK,  (int) lower_char1);
-        //if first_check == NULL, so it's less than RUSSIAN LETTER, so it's kinda pointless \
-            to make second check 
-        //wchar_t* second_check1 = strchr(SECOND_CHECK, (int) lower_char1);
-        wchar_t* first_check2  = strchr(FIRST_CHECK,  (int) lower_char2);
-        //same 
-        //wchar_t* second_check2 = strchr(SECOND_CHECK, (int) lower_char2);
+        wchar_t* str_chect1  = strchr(STRAIGHT_CHECK,  (int) lower_char1);
+        wchar_t* str_chect2  = strchr(STRAIGHT_CHECK,  (int) lower_char2);
 
-        //printf("#%d %d %d %d\n", first_check1, second_check1, first_check2, second_check2);
-
-        if (first_check1 != first_check2 != NULL && first_check1 - first_check2 < 0)
+        if (str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 < 0)
             return -1;
-        if (first_check1 != first_check2 != NULL && first_check1 - first_check2 > 0)
+        if (str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 > 0)
             return 1;
-        if (first_check1 == NULL && first_check2 != NULL)
+        if (str_chect1 == NULL && str_chect2 != NULL)
             return -1; 
-        if (first_check1 != NULL && first_check2 == NULL)
+        if (str_chect1 != NULL && str_chect2 == NULL)
             return 1; 
+        str1++;
+        str2++;
+    }
+    return 0;
+}
+
+int reversed_comparator(wchar_t* str1, wchar_t* str2)
+{
+    while (*str1 != '\0' && *str2 != '\0')
+    {
+        wchar_t lower_char1 = tolower(*str1);
+        wchar_t lower_char2 = tolower(*str2);
+
+        wchar_t* str_chect1  = strchr(STRAIGHT_CHECK,  (int) lower_char1);
+        wchar_t* str_chect2  = strchr(STRAIGHT_CHECK,  (int) lower_char2);
+
+        if (str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 < 0)
+            return 1;
+        if (str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 > 0)
+            return -1;
+        if (str_chect1 == NULL && str_chect2 != NULL)
+            return 1; 
+        if (str_chect1 != NULL && str_chect2 == NULL)
+            return -1; 
         str1++;
         str2++;
     }
@@ -61,7 +78,7 @@ void swap_comp(wchar_t* array[], int id_first, int id_second)
     array[id_second] = temporary;
 }
 
-void qsort_comp(wchar_t* array[], int left, int right)
+void qsort_comparator(wchar_t* array[], int (*comparator)(wchar_t* str1, wchar_t* str2), int left, int right)
 {
     int i, last;
     if (left >= right)
@@ -69,11 +86,11 @@ void qsort_comp(wchar_t* array[], int left, int right)
     swap_comp(array, left, (left + right) / 2);
     last = left;
     for(i = left + 1; i <= right; i++) 
-        if (strcmp(array[i], array[left]) < 0)
+        if (comparator(array[i], array[left]) < 0)
             swap_comp(array, ++last, i);
     swap_comp(array, left, last); 
-    qsort_comp(array, left, last - 1);
-    qsort_comp(array, last + 1, right);
+    qsort_comparator(array, comparator, left, last - 1);
+    qsort_comparator(array, comparator, last + 1, right);
 }
 
 void present(wchar_t* array[], int n)

@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <locale.h>
 #include <wchar.h>
@@ -28,6 +30,7 @@ int main()
     wchar_t* str12 = L".А";
 
     wchar_t* array1[] = {L"АА", L"АБ", L"ББ", L"!Б"};
+    wchar_t* array2[] = {L"АА", L"АБ", L"ББ", L"!Б"};
 
     wchar_t* onegin_test[] = \
     {
@@ -39,20 +42,33 @@ int main()
         L"Но, боже мой, какая скука",
         L"С больным сидеть и день и ночь,"
     };
+    
+    print_output_of_comparator(straight_comparator(str1, str2), -1);
+    print_output_of_comparator(straight_comparator(str3, str4),  1);
+    print_output_of_comparator(straight_comparator(str5, str6),  0);
+    print_output_of_comparator(straight_comparator(str7, str8), -1);
+    print_output_of_comparator(straight_comparator(str9,  str10),  1);
+    print_output_of_comparator(straight_comparator(str11, str12),  0);
 
-    qsort_comp(array1, 0, 3);   //0 goes as integer of starting point
+    print_output_of_comparator(reversed_comparator(str1, str2), 1);
+    print_output_of_comparator(reversed_comparator(str3, str4),-1);
+    print_output_of_comparator(reversed_comparator(str5, str6), 0);
+    print_output_of_comparator(reversed_comparator(str7, str8), 1);
+    print_output_of_comparator(reversed_comparator(str9,  str10), -1);
+    print_output_of_comparator(reversed_comparator(str11, str12),  0);
+
+    printf("\nStraight Order: \n");
+    qsort_comparator(array1, straight_comparator, 0, 3);   
+                                //0 goes as integer of starting point
                                 //2 goes as integer of ending point
                                 //implement writing function 
-                                
-    qsort_comp(onegin_test, 0, 6);
-    
-    print_output_of_strcmp(strcmp(str1, str2), -1);
-    print_output_of_strcmp(strcmp(str3, str4),  1);
-    print_output_of_strcmp(strcmp(str5, str6),  0);
-    print_output_of_strcmp(strcmp(str7, str8), -1);
-    print_output_of_strcmp(strcmp(str9,  str10),  1);
-    print_output_of_strcmp(strcmp(str11, str12),  0);
-
     present(array1, 4);
+
+    printf("\nReversed Order: \n");
+    qsort_comparator(array2, reversed_comparator, 0, 3); 
+    present(array2, 4);
+
+    printf("\n");
+    qsort_comparator(onegin_test, straight_comparator, 0, 6);
     present(onegin_test, 7);
 }

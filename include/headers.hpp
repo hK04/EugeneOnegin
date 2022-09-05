@@ -1,11 +1,31 @@
-int SIZE_OF_ALPHABET = 33;
+/// \file
 
-wchar_t* LOWER_ALPHABET = L"абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-//abcdefghijklmnopqrstuvwxyz
+#ifndef HEADERS
+#define HEADERS
 
-wchar_t* UPPER_ALPHABET = L"АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-//ABCDEFGHIJKLMNOPQRSTUVWXYZ
+//!-------------------------------------------------------------------
+//! Size of Alphabet (Russain + American ;)
+//!-------------------------------------------------------------------
+int SIZE_OF_ALPHABET = 59;
 
-wchar_t* STRAIGHT_CHECK = L"ъьщшчцхфтсрпнмлкйзждгвбеиёюяэыоуа";
+//!-------------------------------------------------------------------
+//! Alphabet with lower characters
+//!-------------------------------------------------------------------
+char* LOWER_ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz";
 
-wchar_t* REVERSED_CHECK = L"ауоыэяюёиебвгджзйклмнпрстфхцчшщьъ"; 
+//!-------------------------------------------------------------------
+//! Alphabet with upper characters
+//!-------------------------------------------------------------------
+char* UPPER_ALPHABET = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+//!-------------------------------------------------------------------
+//! String with priorities of straight comparator 
+//!-------------------------------------------------------------------                        
+char* STRAIGHT_CHECK = "0123456789zyxwvutsrqponmlkjihgfedcbaъьщшчцхфтсрпнмлкйзждгвбеиёюяэыоуа";
+
+//!-------------------------------------------------------------------
+//! String with priorities of reversed comparator 
+//!-------------------------------------------------------------------     
+char* REVERSED_CHECK = "ауоыэяюёиебвгджзйклмнпрстфхцчшщьъabcdefghijklmnopqrstuvwxyz9876543210"; 
+
+#endif// headers

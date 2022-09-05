@@ -1,5 +1,6 @@
-#define print_output_of_comparator(x, y)                                    \
-{                                                                           \
+/// \file
+
+#define print_output_of_comparator(x, y){                                   \
     if(x == y)                                                              \
     {                                                                       \
         printf("\x1b[32m");                                                 \
@@ -13,11 +14,15 @@
     }                                                                       \
 }
 
-#define ASSERT(condition)                                                   \
-    {if (!(condition))                                                      \
+#define ASSERT(condition){                                                  \
+    if (!(condition))                                                       \
         printf("Error in %s in %d\n",                                       \
-            #condition, __LINE__);}
+            #condition, __LINE__);                                          \
+}
 
+#define print_get_help{                                                                                                                                                                     \
+    printf("To sort the Onegin text in straight order use ./main --straight or ./make -s\nTo sort the Onegin text in reversed order use ./main --reversed or ./make -r");                   \
+}                                               
 
 /*
 #define print_output_of_qsort_comp(x, y) \

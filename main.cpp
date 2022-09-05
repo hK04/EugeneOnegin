@@ -1,48 +1,118 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
-#include <locale.h>
-#include <wchar.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+/// \file
 
-#include "include/comparator.hpp"
+#include <locale.h>
+#include <unistd.h>
+
+#include "include/sortComparator.hpp"
+#include "include/readText.hpp"
 #include "include/test.hpp"
 
-int main()
-{
-    setlocale(LC_ALL, "C.UTF-8"); //helps to setup Russain language
+//!-------------------------------------------------------------------
+//!  @file main.cpp
+//!   @mainpage Eugene Oneging Project Documentation
+//!   @section desc Description:
+//!   This program was written as second task at MIPT
+//!
+//!   @section download Downloading link:
+//!   <a href="https://github.com/hK04/EugeneOnegin">->Github</a> 
+//!   @author Anoshin. M aka hK04
+//!   @brief Program meant to sort all sentence in EugeneOnegin poem at straight and reversed orders 
+//!  
+//!-------------------------------------------------------------------
 
-    wchar_t* str1  = L"АБ";
-    wchar_t* str2  = L"АА";
+void handle_input(int argc, char* argv[]){
+    if (argc == 1 || (argc == 2 && (straight_comparator(argv[1], "--help") == 0 || straight_comparator(argv[1], "-h") == 0))){
+        print_get_help;
+    }
+    else if (argc == 2 && (straight_comparator(argv[1], "--reversed")  == 0 || straight_comparator(argv[1], "-r") == 0 || straight_comparator(argv[1], "--reverse") == 0)){
+        printf("Reversed");
+        char* buffer = NULL;
+        size_t len = read_text(&buffer);
+        char* start_of_buffer = buffer;
 
-    wchar_t* str3  = L"АА";
-    wchar_t* str4  = L"АБ";
+        size_t cnt = modify_text(buffer, &len);
+
+        char** arr = (char**) calloc(cnt, sizeof(char**));
+        set(arr, buffer, cnt, len);
+
+        qsort_comparator(arr, reversed_comparator, 0, cnt - 1);
+        present(arr, cnt);
+        
+        free(buffer);
+
+    } 
+    else if (argc == 2 && (straight_comparator(argv[1], "--straight") == 0 || straight_comparator(argv[1], "-s") == 0)){
+        printf("Straight");
+        char* buffer = NULL;
+        size_t len = read_text(&buffer);
+        char* start_of_buffer = buffer;
+
+        size_t cnt = modify_text(buffer, &len);
+
+        char** arr = (char**) calloc(cnt, sizeof(char**));
+        set(arr, buffer, cnt, len);
+
+        qsort_comparator(arr, straight_comparator, 0, cnt - 1);
+        present(arr, cnt);
+        
+        free(buffer);
+    }
+}
+
+int main(int argc, char* argv[]){ //to add handle of input
+    setlocale(LC_ALL, "rus"); //helps to setup Russain language
+
+#if DebugMode == 1
+
+    char* str1  = "АБ";
+    char* str2  = "АА";
+
+    char* str3  = "АА";
+    char* str4  = "АБ";
     
-    wchar_t* str5  = L"АА";
-    wchar_t* str6  = L"АА";
+    char* str5  = "АА";
+    char* str6  = "АА";
 
-    wchar_t* str7  = L".А";
-    wchar_t* str8  = L"АА";
+    char* str7  = ".А";
+    char* str8  = "АА";
 
-    wchar_t* str9  = L"АА";
-    wchar_t* str10 = L".А";
+    char* str9  = "АА";
+    char* str10 = ".А";
 
-    wchar_t* str11 = L".А";
-    wchar_t* str12 = L".А";
+    char* str11 = ".А";
+    char* str12 = ".А";
 
-    wchar_t* array1[] = {L"АА", L"АБ", L"ББ", L"!Б"};
-    wchar_t* array2[] = {L"АА", L"АБ", L"ББ", L"!Б"};
+    char* array1[] = {"АА", "АБ", "ББ", "!Б"};
+    char* array2[] = {"АА", "АБ", "ББ", "!Б"};
 
-    wchar_t* onegin_test[] = \
+    char* onegin_test_1[] = \
     {
-        L"«Мой дядя самых честных правил,", 
-        L"Когда не в шутку занемог,",
-        L"Он уважать себя заставил",
-        L"И лучше выдумать не мог.",
-        L"Его пример другим наука;",
-        L"Но, боже мой, какая скука",
-        L"С больным сидеть и день и ночь,"
+        "«Мой дядя самых честных правил,", 
+        "Когда не в шутку занемог,",
+        "Он уважать себя заставил",
+        "И лучше выдумать не мог.",
+        "Его пример другим наука;",
+        "Но, боже мой, какая скука",
+        "С больным сидеть и день и ночь,"
     };
     
+
+    char* onegin_test_2[] = \
+    {
+        "«Мой дядя самых честных правил,", 
+        "Когда не в шутку занемог,",
+        "Он уважать себя заставил",
+        "И лучше выдумать не мог.",
+        "Его пример другим наука;",
+        "Но, боже мой, какая скука",
+        "С больным сидеть и день и ночь,"
+    };
+
     print_output_of_comparator(straight_comparator(str1, str2), -1);
     print_output_of_comparator(straight_comparator(str3, str4),  1);
     print_output_of_comparator(straight_comparator(str5, str6),  0);
@@ -68,7 +138,20 @@ int main()
     qsort_comparator(array2, reversed_comparator, 0, 3); 
     present(array2, 4);
 
-    printf("\n");
-    qsort_comparator(onegin_test, straight_comparator, 0, 6);
-    present(onegin_test, 7);
+    printf("\nReversed Order: \n");
+    qsort_comparator(onegin_test_1, straight_comparator, 0, 6);
+    present(onegin_test_1, 7);
+
+    printf("\nReversed Order: \n");
+    qsort_comparator(onegin_test_2, reversed_comparator, 0, 6);
+    present(onegin_test_2, 7);
+
+#else
+    handle_input(argc, argv);
+
+#endif //DebugMode
+
+    return 0;
 }
+
+//wchar_t translates normal char in wrong way!!!!

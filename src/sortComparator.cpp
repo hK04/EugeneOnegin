@@ -1,5 +1,3 @@
-/// \file
-
 #include <math.h>
 #include <stdio.h>
 #include <locale.h>
@@ -22,48 +20,50 @@ char* strchr(char* str, int character){
     return NULL;
 }
 
-int straight_comparator(char* str1, char* str2){
-    while (*str1 != '\0' && *str2 != '\0')
-    {
-        char lower_char1 = tolower(*str1);
-        char lower_char2 = tolower(*str2);
+int straight_comparator(const void* str1, const void* str2){
+    char* str_1 = (char*) str1;
+    char* str_2 = (char*) str2;
 
-        char* str_chect1  = strchr(STRAIGHT_CHECK,  (int) lower_char1);
-        char* str_chect2  = strchr(STRAIGHT_CHECK,  (int) lower_char2);
-
-        if (str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 < 0)
-            return -1;
-        if (str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 > 0)
-            return 1;
-        if (str_chect1 == NULL && str_chect2 != NULL)
-            return -1; 
-        if (str_chect1 != NULL && str_chect2 == NULL)
-            return 1; 
-        str1++;
-        str2++;
-    }
-    return 0;
-}
-
-int reversed_comparator(char* str1, char* str2){
-    while (*str1 != '\0' && *str2 != '\0')
-    {
-        char lower_char1 = tolower(*str1);
-        char lower_char2 = tolower(*str2);
+    while (*str_1 != '\0' && *str_2 != '\0'){
+        char lower_char1 = tolower(*str_1);
+        char lower_char2 = tolower(*str_2);
 
         char* str_chect1 = strchr(STRAIGHT_CHECK,  (int) lower_char1);
         char* str_chect2 = strchr(STRAIGHT_CHECK,  (int) lower_char2);
 
-        if (str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 < 0)
-            return 1;
-        if (str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 > 0)
+        if ((str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 < 0) ||
+            (str_chect1 == NULL && str_chect2 != NULL))
             return -1;
-        if (str_chect1 == NULL && str_chect2 != NULL)
-            return 1; 
-        if (str_chect1 != NULL && str_chect2 == NULL)
-            return -1; 
-        str1++;
-        str2++;
+        if ((str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 > 0) ||
+            (str_chect1 != NULL && str_chect2 == NULL))
+            return  1;
+
+        str_1++;
+        str_2++;
+    }
+    return 0;
+}
+
+int reversed_comparator(const void* str1, const void* str2){
+    char* str_1 = (char*) str1;
+    char* str_2 = (char*) str2;
+
+    while (*str_1 != '\0' && *str_2 != '\0'){
+        char lower_char1 = tolower(*str_1);
+        char lower_char2 = tolower(*str_2);
+
+        char* str_chect1 = strchr(STRAIGHT_CHECK,  (int) lower_char1);
+        char* str_chect2 = strchr(STRAIGHT_CHECK,  (int) lower_char2);
+
+        if ((str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 < 0) ||
+            (str_chect1 == NULL && str_chect2 != NULL))
+            return  1;
+        if ((str_chect1 != str_chect2 != NULL && str_chect1 - str_chect2 > 0) ||
+            (str_chect1 != NULL && str_chect2 == NULL))
+            return -1;
+
+        str_1++;
+        str_2++;
     }
     return 0;
 }
@@ -75,7 +75,7 @@ void swap_comp(char* array[], int id_first, int id_second){
     array[id_second] = temporary;
 }
 
-void qsort_comparator(char* array[], int (*comparator)(char* str1, char* str2), int left, int right){
+void qsort_comparator(char* array[], int (*comparator)(const void*, const void*), int left, int right){
     int i, last;
     if (left >= right)
         return;

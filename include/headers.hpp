@@ -1,5 +1,3 @@
-/// \file
-
 #ifndef HEADERS
 #define HEADERS
 

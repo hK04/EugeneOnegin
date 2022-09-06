@@ -1,5 +1,3 @@
-/// \file
-
 #include <stdio.h>
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -7,14 +5,13 @@
 #include <unistd.h>
 
 #include "../include/test.hpp"
+#include "../include/sortComparator.hpp"
 
-char* FILENAME = "text/Onegin.txt";
-
-size_t read_text(char** buffer){
+size_t read_text(char** buffer, const char* filename){
     FILE* file;
     struct stat buff;
     
-    file = fopen(FILENAME, "r");
+    file = fopen(filename, "r");
     ASSERT(file != NULL);
 
     fstat(fileno(file), &buff);
@@ -55,7 +52,7 @@ size_t modify_text(char* const buffer, size_t* len){
     return cnt;
 }
 
-void set(char** arr, char* buffer, size_t cnt, int len){
+void get_sentences(char** arr, char* const buffer, size_t cnt, int len){
     int iter = 0;
     int Line = 0;
 
@@ -68,4 +65,36 @@ void set(char** arr, char* buffer, size_t cnt, int len){
             Line = 1;
         }
     }
+}
+
+void complete_work_with_text_straight(const char* INPUT_FILENAME){
+    char* buffer = NULL;
+    size_t len = read_text(&buffer, INPUT_FILENAME);
+    char* start_of_buffer = buffer;
+
+    size_t cnt = modify_text(buffer, &len);
+
+    char** arr = (char**) calloc(cnt, sizeof(char**));
+    get_sentences(arr, buffer, cnt, len);
+
+    qsort_comparator(arr, straight_comparator, 0, cnt - 1);
+    present(arr, cnt);
+        
+    free(buffer);
+}
+
+void complete_work_with_text_reversed(const char* INPUT_FILENAME){
+    char* buffer = NULL;
+    size_t len = read_text(&buffer, INPUT_FILENAME);
+    char* start_of_buffer = buffer;
+
+    size_t cnt = modify_text(buffer, &len);
+
+    char** arr = (char**) calloc(cnt, sizeof(char**));
+    get_sentences(arr, buffer, cnt, len);
+
+    qsort_comparator(arr, reversed_comparator, 0, cnt - 1);
+    present(arr, cnt);
+        
+    free(buffer);
 }

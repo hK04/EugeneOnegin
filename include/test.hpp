@@ -1,5 +1,3 @@
-/// \file
-
 #define print_output_of_comparator(x, y){                                   \
     if(x == y)                                                              \
     {                                                                       \
@@ -21,10 +19,9 @@
 }
 
 #define print_get_help{                                                                                                                                                                     \
-    printf("To sort the Onegin text in straight order use ./main --straight or ./make -s\nTo sort the Onegin text in reversed order use ./main --reversed or ./make -r");                   \
+    printf("To sort the Onegin text in straight order use ./main --straight"\
+    " or ./make -s\nTo sort the Onegin text in reversed order use ./main --"\
+    "reversed or ./make -r");                                               \
 }                                               
 
-/*
-#define print_output_of_qsort_comp(x, y) \
-    {for ()}
-*/
+void run_tests();

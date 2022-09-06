@@ -1,5 +1,3 @@
-/// \file
-
 //!-------------------------------------------------------------------
 //! Turns UPPER Russian letter to lowercase
 //!
@@ -27,7 +25,7 @@ char* strchr(char* str, int character);
 //!
 //! @return 1 if str1[i] > str2[i], -1 if str1[i] < str2[i], 0 then str1[i] = str2[i]
 //!----------------------------------------------------------------------------------
-int straight_comparator(char* str1, char* str2);
+int straight_comparator(const void* str1, const void* str2);
 
 //!----------------------------------------------------------------------------------
 //! Returns comparison of str1 and str2 by rule in REVERSED_CHECK
@@ -37,7 +35,7 @@ int straight_comparator(char* str1, char* str2);
 //!
 //! @return -1 if str1[i] > str2[i], 1 if str1[i] < str2[i], 0 then str1[i] = str2[i]
 //!----------------------------------------------------------------------------------
-int reversed_comparator(char* str1, char* str2);
+int reversed_comparator(const void* str1, const void* str2);
 
 //!-----------------------------------------------
 //! Swaps the array[id_first] and array[id_second]
@@ -57,7 +55,7 @@ void swap_comp(char* array[], int id_first, int id_second);
 //! @param [in] left - id of first element in array
 //! @param [in] right - id of last element in array
 //!-----------------------------------------------------------------------------------
-void qsort_comparator(char* array[], int (*comparator)(char* str1, char* str2), int left, int right);
+void qsort_comparator(char* array[], int (*comparator) (const void*, const void*), int left, int right);
 
 //!------------------------------------------------
 //! Prints output in bash

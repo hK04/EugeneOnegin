@@ -3,12 +3,11 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <stdlib.h>
-
 #include <locale.h>
 #include <unistd.h>
 
 #include "include/sortComparator.hpp"
-#include "include/readText.hpp"
+#include "include/readAndWriteText.hpp"
 #include "include/test.hpp"
 
 //!-------------------------------------------------------------------
@@ -20,11 +19,13 @@
 //!   @section download Downloading link:
 //!   <a href="https://github.com/hK04/EugeneOnegin">->Github</a> 
 //!   @author Anoshin. M aka hK04
-//!   @brief Program meant to sort all sentence in EugeneOnegin poem at straight and reversed orders 
+//!   @brief Program meant to sort all sentence in EugeneOnegin poem\
+//!   at straight and reversed orders 
 //!  
 //!-------------------------------------------------------------------
 
-char* FILENAME = "text/Onegin.txt";
+char* FILENAME_INPUT  = "text/Onegin.txt";
+char* FILENAME_OUTPUT = "Written.txt";
 
 void handle_input(int argc, char* argv[]){
     if (argc == 1 || (
@@ -37,12 +38,16 @@ void handle_input(int argc, char* argv[]){
     straight_comparator(argv[1], "--reversed")  == 0 ||
     straight_comparator(argv[1], "-r")          == 0 ||
     straight_comparator(argv[1], "--reverse")   == 0 )){
-        complete_work_with_text_reversed(FILENAME);
+        complete_work_with_text(FILENAME_INPUT, 
+                                FILENAME_OUTPUT,
+                                reversed_comparator);
     } 
     else if (argc == 2 && (
     straight_comparator(argv[1], "--straight") == 0 ||
     straight_comparator(argv[1], "-s")         == 0 )){
-        complete_work_with_text_straight(FILENAME);
+        complete_work_with_text(FILENAME_INPUT, 
+                                FILENAME_OUTPUT,
+                                straight_comparator);
     }
 }
 

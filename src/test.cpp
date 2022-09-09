@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../include/sortComparator.hpp"
 #include "../include/test.hpp"
@@ -27,6 +28,7 @@ void run_tests(){
 
     char* array1[] = {"АА", "АБ", "ББ", "!Б"};
     char* array2[] = {"АА", "АБ", "ББ", "!Б"};
+    char* array3[] = {"ААA", "АБА", "АББ", "БББ", "БАА", "БАБ"};
 
     char* onegin_test_1[] = \
     {
@@ -76,6 +78,10 @@ void run_tests(){
     printf("\nReversed Order: \n");
     qsort_comparator(array2, reversed_comparator, 0, 3); 
     present(array2, 4);
+
+    printf("\nReversed Order: \n");
+    qsort_comparator(array3, reversed_comparator, 0, 6);
+    present(array3, 6);
 
     printf("\nReversed Order: \n");
     qsort_comparator(onegin_test_1, straight_comparator, 0, 6);

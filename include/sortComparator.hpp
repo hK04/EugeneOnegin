@@ -1,3 +1,4 @@
+#pragma once
 //!-------------------------------------------------------------------
 //! Turns UPPER Russian letter to lowercase
 //!
@@ -8,7 +9,7 @@
 char tolower(char character);
 
 //!---------------------------------------------------------
-//! Return first entrance of character in str
+//! Returns first entrance of character in str
 //!
 //! @param [in] str - str where strchr seeks character
 //! @param [in] character - character needed to be found
@@ -16,6 +17,24 @@ char tolower(char character);
 //! @return pointer to character if it exist, NULL otherwise
 //!---------------------------------------------------------
 char* strchr(char* str, int character);
+
+//!---------------------------------------------------------
+//! Returns length of the str
+//!
+//! @param [in] str - str where strlen finds len
+//!
+//! @return length of the string
+//!---------------------------------------------------------
+size_t strlen(char* str);
+
+//!---------------------------------------------------------
+//! Returns pointer to the end of str
+//!
+//! @param [in] str - str where we finding the end
+//!
+//! @return pointer to the end of str
+//!---------------------------------------------------------
+char* get_end_of_str(char* str);
 
 //!----------------------------------------------------------------------------------
 //! Returns comparison of str1 and str2 by rule in STRAIGHT_CHECK
@@ -64,4 +83,4 @@ void qsort_comparator(char* array[], int (*comparator) (const void*, const void*
 //!
 //! @param [in] n - number of strings to be printed
 //!------------------------------------------------
-void present(char* array[], int n);
+void present(char** const array, int n);

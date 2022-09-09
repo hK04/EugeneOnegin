@@ -20,6 +20,21 @@ char* strchr(char* str, int character){
     return NULL;
 }
 
+size_t strlen(char* str){
+    char* end_of_str = str;
+
+    while (*end_of_str != '\0')
+        end_of_str++;
+
+    return end_of_str - str;
+}
+
+char* get_end_of_str(char* str){
+    while (*str != '\0')
+        str++;
+    return str;
+}
+
 int straight_comparator(const void* str1, const void* str2){
     char* str_1 = (char*) str1;
     char* str_2 = (char*) str2;
@@ -45,12 +60,15 @@ int straight_comparator(const void* str1, const void* str2){
 }
 
 int reversed_comparator(const void* str1, const void* str2){
-    char* str_1 = (char*) str1;
-    char* str_2 = (char*) str2;
+    char* end_of_str1 = get_end_of_str((char*) str1);
+    char* end_of_str2 = get_end_of_str((char*) str2);
 
-    while (*str_1 != '\0' && *str_2 != '\0'){
-        char lower_char1 = tolower(*str_1);
-        char lower_char2 = tolower(*str_2);
+    size_t len1 = strlen((char*) str1);
+    size_t len2 = strlen((char*) str2);
+
+    while (len1 != 0 && len2 != 0){
+        char lower_char1 = tolower(*end_of_str1);
+        char lower_char2 = tolower(*end_of_str2);
 
         char* str_chect1 = strchr(STRAIGHT_CHECK,  (int) lower_char1);
         char* str_chect2 = strchr(STRAIGHT_CHECK,  (int) lower_char2);
@@ -62,8 +80,10 @@ int reversed_comparator(const void* str1, const void* str2){
             (str_chect1 != NULL && str_chect2 == NULL))
             return -1;
 
-        str_1++;
-        str_2++;
+        len1--;
+        len2--;
+        end_of_str1--;
+        end_of_str2--;
     }
     return 0;
 }
@@ -89,15 +109,15 @@ void qsort_comparator(char* array[], int (*comparator)(const void*, const void*)
     qsort_comparator(array, comparator, last + 1, right);
 }
 
-void present(char* array[], int n){
+void present(char** const array, int n){
     setlocale(LC_ALL, "rus");
+    char** const arr = array;
     
-    for (int i = 0; i < n; i++)
-    {
-        while (*array[i] != '\0')
+    for (int i = 0; i < n; i++){
+        while (*arr[i] != '\0')
         {
-            printf("%c", *array[i]);
-            array[i]++;
+            printf("%c", *arr[i]);
+            arr[i]++;
         }
         printf("\n");
     }

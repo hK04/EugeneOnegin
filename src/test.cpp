@@ -70,9 +70,6 @@ void run_tests(){
 
     printf("\nStraight Order: \n");
     qsort_comparator(array1, straight_comparator, 0, 3);   
-                                //0 goes as integer of starting point
-                                //2 goes as integer of ending point
-                                //implement writing function 
     present(array1, 4);
 
     printf("\nReversed Order: \n");

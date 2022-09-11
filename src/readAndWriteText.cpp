@@ -32,7 +32,7 @@ size_t write_text(char** buffer, const char* filename, size_t cnt){
 
     file = fopen(filename, "w");
     ASSERT(file != NULL);
-    //present(buffer, cnt);
+
     for (size_t i = 0; i < cnt; i++){
         len    = strlen(*(buffer + i));
         bytes += fwrite(*(buffer + i), len, sizeof(char), file);

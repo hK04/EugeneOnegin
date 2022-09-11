@@ -109,6 +109,18 @@ void qsort_comparator(char* array[], int (*comparator)(const void*, const void*)
     qsort_comparator(array, comparator, last + 1, right);
 }
 
+/*
+void qsort( void *ptr, size_t count, size_t size,
+            int (*comp)(const void *, const void *) );
+ptr	    -	pointer to the array to sort
+count	-	number of elements in the array
+size	-	size of each element in the array in bytes
+comp	-	comparison function which returns ​a negative integer value 
+            if the first argument is less than the second, a positive 
+            integer value if the first argument is greater than 
+            the second and zero if the arguments are equivalent.
+*/
+
 void present(char** const array, int n){
     setlocale(LC_ALL, "rus");
     char** const arr = array;
